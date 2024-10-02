@@ -18,7 +18,7 @@
     <h2 id="h_otz">ОСТАВЬТЕ СВОЙ ОТЗЫВ</h2>
     <?php if(!$_SESSION['user']){
         echo "<div id=\"switch_box1\" class=\"box_reg\" style=\"padding-bottom:30px\">
-        <form id=\"form\" action=\"otz_obr.php\" method=\"GET\" class=\"blur\">
+        <form id=\"form\" method=\"GET\" class=\"blur\">
             <p>Тема</p>
             <input class=\"btn\" type=\"text\" name=\"title\" disabled>
             <p>Текст</p>
@@ -31,9 +31,9 @@
         echo "<div id=\"switch_box1\" class=\"box_reg\">
         <form id=\"form\" action=\"otz_obr.php\" method=\"GET\">
             <p>Тема</p>
-            <input class=\"btn\" type=\"text\" name=\"title\">
+            <input class=\"btn\" type=\"text\" placeholder=\"Тема\" name=\"title\">
             <p>Текст</p>
-            <textarea name=\"text\" class=\"btn t_a\" id=\"texthold\"></textarea>
+            <textarea name=\"text\" class=\"btn t_a\" placeholder=\"Текст\" id=\"texthold\"></textarea>
             <input id=\"sub\" class=\"btn\" type=\"submit\" value=\"Отправить\">
         </form>
         </div>";

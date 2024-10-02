@@ -16,6 +16,7 @@ main{
     background-image: linear-gradient(rgba(0, 0, 0, 0.918), rgba(0, 0, 0, 0.815));
     color: white;
     backdrop-filter: blur(4px);
+		min-height: 600px;
 }
 main img{
     display: none;
@@ -41,6 +42,11 @@ body{
 }
 a{
     text-decoration: none;
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0; 
 }
 .logo{
     display: flex;
@@ -422,7 +428,6 @@ a:visited{
     position: relative;
     border: 1px solid;
     border-image-slice: 1;
-    background: linear-gradient(rgba(107, 107, 107, 0.7), rgba(252, 68, 68, 0.7));
     font-family: 'Montserrat', sans-serif;
     text-transform: uppercase;
     overflow: hidden;
@@ -454,7 +459,6 @@ a:visited{
     width: 100%;
     z-index: -1;
     color: white;
-    background: linear-gradient(rgba(107, 107, 107, 0.7), rgba(252, 68, 68, 0.7));
     transition: .8s cubic-bezier(.165, .84, .44, 1);
   }
   .btn2:hover {
@@ -514,6 +518,7 @@ a:visited{
     max-width: 1600px;
     background-color: rgba(161, 161, 161, 0.192);
     margin: 0 auto;
+		
 }
 .box_categ select{
     width: 200px;
@@ -530,6 +535,7 @@ a:visited{
     display: flex;
     flex-wrap: wrap;
     margin-left:100px;
+		scroll-margin-top: 100px; /* Отступ сверху при переходе к элементу */
 }
 #auto_sort_img{
     width: 300px;
@@ -543,9 +549,20 @@ select{
     border-radius: 10px;
 }
 #panel{
-    max-width: 1100px;
-    margin: 0 auto;
     color: white;
+		width: 200px;
+		display: flex;
+		flex-direction: column;
+		position:sticky;
+		top: 65px;
+		right: 250px;
+		z-index: 1000;
+		float: right;
+}
+#panel label{
+	padding-top: 4px;
+	padding-bottom: 4px;
+	padding-left: 8px;
 }
 .buy_cart{
     width: 200px;
@@ -590,7 +607,9 @@ select{
 .we_main{
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+		flex-direction: column;
+		position: relative;
+		justify-content: space-around;
 }
 .we_page img{
     width: 800px;
@@ -668,6 +687,105 @@ cursor: pointer;
 .blc2{
     width: 300px;
 }
+.search_error{
+	display: flex;
+}
+#search_error{
+	margin:  150px auto;
+	font-size: 30px;
+	line-height: 2;
+	letter-spacing: 3px;
+	text-align: center;
+}
+#back_auto{
+	color: rgb(233, 92, 92);
+	cursor: pointer;
+}
+.search{
+	width: 200px;
+	height: 30px;
+	margin: 5px;
+	text-align: center;
+	border-radius: 10px;
+}
+.account{
+	display: flex;
+}
+.my_cars{
+	margin-left: 100px;
+	margin: 40px;
+	line-height: 2;
+}
+.block_we{
+	max-width: 800px;
+	text-align:justify;
+	margin: 30px;
+	font-size: 22px;
+	justify-content: center;
+}
+.block_we p{
+	opacity: 0.9;
+	width: 500px;
+	margin: 0 auto;
+	padding: 0;
+}
+.block_we img{
+	margin: 0 auto;
+	width: 600px;
+	height: 420px;
+	border-radius: 20px;
+}
+.we_page{
+	margin-bottom: 150px; /* Половина высоты блока */
+  position: relative;
+	align-items: center;
+}
+.we_page:nth-child(even) {
+  align-self: flex-end; /* Четные блоки выравниваются вправо */
+	margin-right: 150px;
+}
+
+.we_page:nth-child(odd) {
+  align-self: flex-start; /* Нечетные блоки выравниваются влево */
+	margin-left: 150px;
+}
+
+.we_page:not(:first-child) {
+  margin-top: -500px; /* Поднимаем каждый следующий блок на половину его высоты */
+}
+.block_we h4{
+	font-size: 40px;
+	margin: 20px auto;
+	letter-spacing: 3px;
+	font-weight: bolder;
+	width: 500px;
+}
+.search::placeholder {
+	color: #2c2c2c;
+}
+.car:hover {
+	transform: scale(1.05);
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+.block_filter{
+	margin-top: 15px;
+	display: flex;
+	flex-direction: column;
+}
+.block_filter .btn2{
+	height: 30px;
+}
+
+.mini input{
+	width: 87px;
+}
+#switch_box1 .t_a::placeholder, input::placeholder{
+text-transform: none;
+letter-spacing: 0;
+}
+#content{
+	min-height: 800px;
+}
 @media (max-width: 1740px){
     .nav a{
         font-size: 16px;
@@ -718,6 +836,7 @@ cursor: pointer;
     }
     #panel{
         max-width: 900px;
+				
     }
 }
 @media (max-width: 1010px){

@@ -16,103 +16,87 @@
     if($row_cnt > 0){
         $block = true;
     }
+		$selectedPeredacha = isset($_GET['peredacha_id']) ? $_GET['peredacha_id'] : '';
+		$selectedYear = isset($_GET['year_id']) ? $_GET['year_id'] : '';
+		$selectedDvigatel = isset($_GET['dvigatel_id']) ? $_GET['dvigatel_id'] : '';
 ?>
 
     <main>
     <h2 style="margin-top: 0; width: 190px;">ПОИСК</h2>
 
     <div class="box_categ">
+		<?php if ($result && mysqli_num_rows($result) > 0):?>
     <form id="panel" action="sort.php">
-    <select class="btn2" name="automobiles" id="sub" onchange="this.form.submit()">
-        <option selected disabled>Автомобили</option>
-        <option value="0">Все автомобили</option>
-        <?php
-        foreach($name as $auto){
-            echo '<option value="'.$auto["id"].'">'.$auto["name"].'</option>';
-        }
-        ?>
-    </select>
-    <select class="btn2" name="kpp" id="sub" onchange="this.form.submit()">
+		<div class="block_filter">
+		<label style="text-align:center; padding-left:0">Поиск</label>
+		<input placeholder="Название" type="text" class="search" id="" name="name" value="<?= isset($_GET['name']) ? htmlspecialchars($_GET['name']) : '' ?>" />
+    <select class="btn2" name="peredacha_id" id="sub" ">
         <option selected disabled>КПП</option>
         <?php
-        foreach($kpp as $kpp2){
-            echo '<option value="'.$kpp2["id"].'">'.$kpp2["type"].'</option>';
+        foreach($carsPeredacha as $id => $perName){
+            echo '<option value=' . $id . '>' . $perName . '</option>';
         }
         ?>
     </select>
-    <select class="btn2" name="privod" id="sub" onchange="this.form.submit()">
-        <option selected disabled>Привод</option>
-        <?php
-        foreach($privod as $privod2){
-            echo '<option value="'.$privod2["id"].'">'.$privod2["type"].'</option>';
-        }
-        ?>
-    </select>
-    <select class="btn2" name="pokolenie" id="sub" onchange="this.form.submit()">
-        <option selected disabled>Поколение</option>
-        <?php
-        foreach($pokolenie as $pokolenie2){
-            echo '<option value="'.$pokolenie2["id"].'">'.$pokolenie2["num"].'</option>';
-        }
-        ?>
-    </select>
-    <select class="btn2" name="dvigatel" id="sub" onchange="this.form.submit()">
-        <option selected disabled>Двигатель</option>
-        <?php
-        foreach($dvigatel as $dvigatel2){
-            echo '<option value="'.$dvigatel2["id"].'">'.$dvigatel2["type"].'</option>';
-        }
-        ?>
-    </select>
-    <select class="btn2" name="power" id="sub" onchange="this.form.submit()">
-        <option selected disabled>Мощность</option>
-        <?php
-        foreach($power as $power2){
-            echo '<option value="'.$power2["id"].'">'.$power2["power"].'</option>';
-        }
-        ?>
-    </select>
-    <select class="btn2" name="color" id="sub" onchange="this.form.submit()">
-        <option selected disabled>Цвет</option>
-        <?php
-        foreach($color as $color2){
-            echo '<option value="'.$color2["id"].'">'.$color2["type"].'</option>';
-        }
-        ?>
-    </select>
-    <select class="btn2" name="probeg" id="sub" onchange="this.form.submit()">
-        <option selected disabled>Пробег</option>
-        <?php
-        foreach($probeg as $probeg2){
-            echo '<option value="'.$probeg2["id"].'">'.$probeg2["kolvo"].'</option>';
-        }
-        ?>
-    </select>
-    <select class="btn2" name="rule" id="sub" onchange="this.form.submit()">
+		<select class="btn2" name="storona_rulya_id" id="sub" ">
         <option selected disabled>Руль</option>
         <?php
-        foreach($rule as $rule2){
-            echo '<option value="'.$rule2["id"].'">'.$rule2["type"].'</option>';
-        }
+        foreach($carsStorona_r as $id => $srName){
+            echo '<option value=' . $id . '>' . $srName . '</option>';        }
         ?>
     </select>
-    <select class="btn2" name="years" id="sub" onchange="this.form.submit()">
-        <option selected disabled>Год</option>
+    <select class="btn2" name="privod_id" id="sub" ">
+        <option selected disabled>Привод</option>
         <?php
-        foreach($year as $year2){
-            echo '<option value="'.$year2["id"].'">'.$year2["year"].'</option>';
+        foreach($carsPrivod as $id => $priName){
+            echo '<option value=' . $id . '>' . $priName . '</option>';
         }
         ?>
     </select>
-    </form>
+		<select class="btn2" name="color_id" id="sub" ">
+        <option selected disabled>Цвет</option>
+        <?php
+        foreach($carsColor as $id => $colName){
+            echo '<option value=' . $id . '>' . $colName . '</option>';        }
+        ?>
+    </select>
+		<select class="btn2" name="dvigatel_id" id="sub" ">
+        <option selected disabled>Двигатель</option>
+        <?php
+        foreach($carsDvigatel as $id => $dvigName){
+            echo '<option value=' . $id . '>' . $dvigName . '</option>';        }
+        ?>
+    </select>
+		<label>Поколение:</label>
+		<div class="mini">
+    <input class="search" type="number" name="pokolenie_min" placeholder="От">-<input class="search" type="number" name="pokolenie_max" placeholder="До">
+		</div>
+		<label>Год:</label>
+		<div class="mini">
+    <input class="search" type="number" name="year_min" placeholder="От">-<input class="search" type="number" name="year_max" placeholder="До">
+		</div>
+    <label>Мощность:</label>
+    <input class="search" type="number" name="power_min" placeholder="От">
+    <input class="search" type="number" name="power_max" placeholder="До">
+		<label>Пробег:</label>
+    <input class="search" type="number" name="probeg_min" placeholder="От">
+    <input class="search" type="number" name="probeg_max" placeholder="До">
+		<label>Цена:</label>
+    <input class="search" type="number" name="price_min" placeholder="От">
+    <input class="search" type="number" name="price_max" placeholder="До">
+		<input type="submit" id="sub" class="btn2 search" value="Искать">
+		</div>
+
+    </form><?php endif;?>
     <div id="content">
     <?php
-    foreach($name as $auto){
+    if ($result && mysqli_num_rows($result) > 0){
+        while ($row = mysqli_fetch_assoc($result)) {
         $cnum += 1;
-        echo "<div class=\"car\">
-        <figure><img id=\"auto_sort_img\" src=\"img/autom/{$auto['name']}.png\"/>
+        echo "<div class=\"car\" id=\"" . htmlspecialchars($row['name']) . "\">
+        <figure><img id=\"auto_sort_img\" src=\"img/autom/{$row['name']}.png\"/>
         <figcaption class=\"cena\">
-        <p>Цена: {$auto['price']} ₽</p>";
+        <p>Цена:  " . htmlspecialchars($row['price']) . " ₽</p>";
         if(!$_SESSION['user']){
             echo "<div><input class=\"btn blc\" type=\"submit\" value=\"Авторизуйтесь\"></div>";
         }else if($block){
@@ -122,19 +106,23 @@
         <form action=\"buy.php\" class=\"none2\"><input id=\"none\" type=\"text\" name=\"eml\" value=\"$cnum\"><input class=\"ls buy_cart btn cnum$cnum\" type=\"submit\" value=\"Купить\"></form>";}
         echo "</figcaption></figure>
         <div id=\"car_t\">
-        <h3>{$auto['name']}</h3>
-        <p>Передача: {$auto['per']}</p>
-        <p>Год: {$auto['ye']}</p>
-        <p>Двигатель: {$auto['dv']}</p>
-        <p>Мощность: {$auto['pow']} л.с.</p>
-        <p>Привод: {$auto['priv']}</p>
-        <p>Цвет: {$auto['co']}</p>
-        <p>Пробег: {$auto['pro']}</p> 
-        <p>Руль: {$auto['ru']}</p>
-        <p>Поколение: {$auto['pok']}</p>
+        <h3>" . htmlspecialchars($row['name']) . "</h3>
+				<p>Город: " . htmlspecialchars($row['city']) . "</p>
+        <p>Передача: " . htmlspecialchars($row['peredacha_name']) . "</p>
+        <p>Год: " . htmlspecialchars($row['year']) . "</p>
+        <p>Двигатель: " . htmlspecialchars($row['dvigatel_name']) . "</p>
+        <p>Мощность: " . htmlspecialchars($row['power_num']) . " л.с.</p>
+        <p>Привод: " . htmlspecialchars($row['privod_name']) . "</p>
+        <p>Цвет: " . htmlspecialchars($row['color_name']) . "</p>
+        <p>Пробег: " . htmlspecialchars($row['probeg_num']) . " км</p> 
+        <p>Руль: " . htmlspecialchars($row['storona']) . "</p>
+        <p>Поколение: " . htmlspecialchars($row['pokolenie_num']) . "</p>
         </div>
         </div>";
         }
+    }else{
+			echo "<div class=\"search_error\"><span id=\"search_error\">Извините, по вашему запросу ничего не найдено.<br><span id=\"back_auto\">Назад<span></span></div>";
+		}
     ?>
     </div>
 </div>
@@ -147,9 +135,22 @@
     require_once "block/footer.php";
 ?>
 <script>
-    
+		if (navigator.geolocation) {
+  	navigator.geolocation.getCurrentPosition(function(position) {
+    console.log("Latitude: " + position.coords.latitude + 
+                ", Longitude: " + position.coords.longitude);
+  });
+	} else {
+  	console.log("Geolocation is not supported by this browser.");
+	}
+	if($('#content .search_error').length > 0){
+		$('#content').css('min-height','0px')
+	}
     $('.blc').click(function(){
         location.href = "reg.php"
+})
+		$('#back_auto').click(function(){
+        location.href = "sort.php"
 })
     $('.ls').click(function(){
         localStorage.ms = 1

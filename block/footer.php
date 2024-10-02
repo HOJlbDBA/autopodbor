@@ -12,7 +12,7 @@
             <div class="contact">
                <h3>Компания</h3> 
                <ul class="list" id="list">
-                <li><a href="faq.php">О нас</a></li>
+                <li><a href="we.php">О нас</a></li>
                 <li><a href="faq.php">Реквизиты</a></li>
                 <li><a href="faq.php">Контакты</a></li>
                </ul>
@@ -49,3 +49,32 @@
     <p>Вы уверены, что хотите отправить заявку на покупку?</p><br>
     <span id="yes">Да</span><span id="no">Нет</span>
 </div>
+<script>
+        // Функция для получения города по координатам
+        function getCity(lat, lon) {
+            $.ajax({
+                url: `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`,
+                dataType: "json",
+                success: function(data) {
+                    const city = data.address.city || data.address.town || data.address.village || "Не удалось определить город";
+                    $('#city').html(city);
+                },
+                error: function() {
+                    $('#city').html("Ошибка при определении города");
+                }
+            });
+        }
+
+        // Проверяем, поддерживает ли браузер Geolocation API
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+                getCity(lat, lon); // Определяем город по координатам
+            }, function() {
+                $('#city').html("Не удалось получить доступ к геолокации");
+            });
+        } else {
+            $('#city').html("Ваш браузер не поддерживает геолокацию");
+        }
+    </script>

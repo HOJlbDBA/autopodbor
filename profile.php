@@ -15,23 +15,41 @@
     }
     $sql = mysqli_query($link, "SELECT `email`,`phone` FROM `user_reg` WHERE `nick` = '$Uuser'");
     $result = mysqli_fetch_array($sql);
+		$auto_sql = "
+			SELECT a.*, u.nick
+			FROM automobiles a
+			JOIN user_reg u ON a.id_owner = u.id
+			WHERE u.nick = '{$Uuser}'
+		";
+		$auto_result = mysqli_query($link, $auto_sql);
 ?>
 
     <main>
     <h2 style="margin-top: 0;">ДОБРЫЙ ДЕНЬ, <?= strtoupper($_SESSION['user']['nick'])?></h2>
-    <div class="private_cont">
-        <form action="save.php" method="get">
+
+<div class="account">
+	<div class="private_cont">
+    <form action="save.php" method="get">
         <span id="cont_pr">Контактные данные:</span><br>
         <span id="redact" class="red">Редактировать</span><br><br>
         <span>Номер телефона: <span class="ph_em"><?php echo $result['phone'] ?></span></span><input class="btn b_r" type="text" name="phone" id=""><br>
         <span>Электронная почта: <span class="ph_em"><?php echo $result['email'] ?></span></span><input class="btn b_r" type="text" name="email" id=""><br>
         <input type="submit" class="save btn" value="Сохранить">
     </form>
+  </div>
 
-    </div>
-		<div class="fav">
-
+	<div class="my_cars">
+		<span id="cont_pr">У вас на продаже:</span>
+		<div class="block_sell">
+		<?php
+		while ($row = mysqli_fetch_assoc($auto_result)) {
+			echo "Автомобиль: " . $row['name'] . "<br>";
+			echo "<hr>";
+	}
+		?>
 		</div>
+	</div>
+</div>
     <div id="exit_prof_div"><a href="logout.php" id="exit_prof">Выйти</a></div>
 
     </main>

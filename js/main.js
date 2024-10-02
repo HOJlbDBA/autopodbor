@@ -10,7 +10,14 @@ $('#nav_menu').click(function(){
           },1000)
     }
 })
-$('.enter_select').click(function(){
+// Получаем полный путь и разбиваем его на части
+let path = window.location.pathname;
+
+// Извлекаем конечное имя файла
+let file = path.substring(path.lastIndexOf('/') + 1);
+
+if(file == "reg.php"){
+	$('.enter_select').click(function(){
         localStorage.act = 1
         $('#switch_box1').css('display','block')
         $('#switch_box2').css('display','none')
@@ -35,4 +42,5 @@ if(localStorage.getItem('act') == 2){
     $('#switch_box1').css('display','none')
     $('.enter_select').css('background-color','rgb(59, 59, 59)')
     $('.reg_select').css('background-color','rgba(161, 161, 161, 0.192)')
+}
 }
